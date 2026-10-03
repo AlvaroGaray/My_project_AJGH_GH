@@ -1,5 +1,5 @@
-import { PrismaClient } from '../generated/prisma';
-import bcrypt from 'bcryptjs';
+import { PrismaClient } from '../generated/prisma/client.js';
+
 
 const prisma = new PrismaClient();
 
@@ -14,13 +14,11 @@ async function main() {
         data: { name: 'Empresa Centro' },
     });
 
-    const hashedPassword = await bcrypt.hash('123456', 10);
-
     await prisma.user.create({
         data: {
-            email: '[email protected]',
-            name: 'Ana Gómez',
-            password: hashedPassword,
+            email: 'garay@gmail.com',
+            name: 'Alvaro Garay',
+            password: 'password123',
             telephone: '88887777',
             role: 'ADMIN',
             tenantId: tenant1.id,
@@ -29,9 +27,9 @@ async function main() {
 
     await prisma.user.create({
         data: {
-            email: '[email protected]',
+            email: 'palma@gmail.com',
             name: 'Luis Pérez',
-            password: hashedPassword,
+            password: 'password123',
             telephone: '88886666',
             role: 'USER',
             tenantId: tenant2.id,
@@ -40,16 +38,16 @@ async function main() {
 
     await prisma.user.create({
         data: {
-            email: '[email protected]',
+            email: 'asensio@gmail.com',
             name: 'María López',
-            password: hashedPassword,
+            password: 'password123',
             telephone: '88885555',
             role: 'USER',
             tenantId: tenant3.id,
         },
     });
 
-    console.log('Seed completado: 3 tenants y 3 usuarios creados');
+    console.log('Seed completado: 3 tenants y 3 usuarios creados (sin hash)');
 }
 
 main()
